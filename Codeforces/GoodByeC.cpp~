@@ -1,0 +1,90 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cmath>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<queue>
+#include<vector>
+#include<map>
+#include<set>
+#include<algorithm>
+
+#define rep(n) for(int i=0;i<n;i++)
+#define repp(j, n) for(int j=0;j<n;j++)
+#define reppp(i, m, n) for(int i=m;i<=n;i++)
+#define all(c) c.begin(), c.end()
+#define MOD 1000000007
+#define MAX 1000000001
+#define INF 1410065408
+ 
+using namespace std;
+typedef long long ll;
+typedef pair<ll, ll> P;
+struct edge{int from, to; ll cost;};
+
+signed main(){
+  int n;
+  scanf("%d", &n);
+
+  int min_rate = 0;
+  int max_rate = MAX;
+  int dd = INF, cc = INF;
+  int all_1 = true;
+  rep(n){
+	int d, c;
+	scanf("%d %d", &d, &c);
+	if(dd != INF || cc != INF){
+	  if(cc == 1){
+		if(c == 1){
+		  min_rate = max(1900, min_rate) + d;
+		  max_rate = max_rate + d;
+		}else{
+		  all_1 = false;
+		  max_rate = min(1899, max_rate) + d;
+		  min_rate = min(1899, min_rate + d);
+		  if(dd >= 0){
+			printf("Impossible");
+			return 0;
+		  }
+		}
+	  }else{
+		if(c == 1){
+		  min_rate = max(1900, min_rate) + d;
+		  max_rate = max(1900, max_rate + d);
+		  if(dd <= 0){
+			printf("Impossible");
+			return 0;
+		  }
+		}else{
+		  all_1 = false;
+		  max_rate = min(1899, max_rate) + d;
+		  min_rate = min_rate + d;
+		}
+	  }
+	}else{
+	  if(c == 1){
+		min_rate = 1900 + d;
+	  }else{
+		all_1 = false;
+		max_rate = 1899 + d;
+	  }
+	}
+
+	printf("%d %d\n", min_rate, max_rate);
+	if(min_rate > max_rate){
+	  printf("Impossible");
+	  return 0;
+	}
+	dd = d;
+	cc = c;
+  }
+
+  if(max_rate >= MAX || all_1){
+	printf("Infinity");
+  }else{
+	printf("%d", max_rate);
+  }
+  
+  return 0;
+}

@@ -1,0 +1,50 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cmath>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<queue>
+#include<vector>
+#include<map>
+#include<set>
+#include<algorithm>
+
+#define rep(n) for(int i=0;i<n;i++)
+#define repp(j, n) for(int j=0;j<n;j++)
+#define reppp(i, m, n) for(int i=m;i<=n;i++)
+#define all(c) c.begin(), c.end()
+#define MOD 1000000007
+#define MAX 1000000001
+#define INF 1410065408
+ 
+using namespace std;
+typedef long long ll;
+typedef pair<ll, ll> P;
+struct edge{int from, to; ll cost;};
+
+int N;
+int bit[1000001];
+
+void update(int index, int value){
+  for(int i=index; i <= N; i += i & -i){
+	bit[i] += value;
+  }
+}
+
+//sum bit[1]~bit[back_index]
+int calc_sum(int back_index){
+  int sum = 0;
+  for(int i=back_index; i >= 1; i -= i & -i){
+	sum += bit[i];
+  }
+  return sum;
+}
+
+signed main(){
+  N = 5;
+  fill(bit, bit+N, 0);
+  update(2, 5);
+  update(3, 3);
+  printf("%d %d\n", calc_sum(2), calc_sum(5));
+}

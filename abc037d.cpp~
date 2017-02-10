@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cmath>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<queue>
+#include<vector>
+#include<map>
+#include<set>
+#include<algorithm>
+
+#define rep(n) for(int i=0;i<n;i++)
+#define repp(j, n) for(int j=0;j<n;j++)
+#define reppp(i, m, n) for(int i=m;i<=n;i++)
+#define all(c) c.begin(), c.end()
+#define MOD 1000000007
+#define MAX 1000000001
+#define INF 1410065408
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> PINT;
+typedef pair<int, PINT > P;
+struct edge{int from, to; ll cost;};
+
+int memo[1000][1000], a[1000][1000];
+int h, w;
+
+ll solve(int ii, int jj){
+	if(memo[ii][jj] > 0) return memo[ii][jj];
+
+	ll ret = 0;
+	int d[2] = {-1, 1};
+	rep(2){
+		if(0<= ii+d[i] && ii+d[i] < h && a[ii+d[i]][jj] > a[ii][jj]){
+			solve(ii+d[i], jj);
+			ret += memo[ii+d[i]][jj];
+		}
+		if(0<= jj+d[i] && jj+d[i] < w && a[ii][jj+d[i]] > a[ii][jj]){
+			solve(ii, jj+d[i]);
+			ret += memo[ii][jj+d[i]];
+		}
+	}
+	ret++;
+	memo[ii][jj] = ret;
+	return ret;	
+}
+
+signed main(){
+	scanf("%d %d\n", &h, &w);
+
+	rep(h){
+		repp(j, w){
+			scanf("%d", &a[i][j]);
+		}
+	}
+
+	fill(memo[0], memo[h], 0);
+	ll ans = 0;
+	rep(h){
+		repp(j, w){
+			ans += solve(i, j);
+			ans %= MOD;
+		}
+	}
+
+	printf("%lld", ans);
+}
