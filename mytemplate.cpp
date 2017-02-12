@@ -25,6 +25,4 @@ typedef pair<ll, ll> P;
 struct edge{int from, to; ll cost;};
 
 signed main(){
-	cin.tie(0);
-	ios::sync_with_stdio(false);
 }
