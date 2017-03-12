@@ -1,0 +1,54 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Mancala is a family of games that are played using tokens (such as seeds or pebbles) that are placed into holes or pits in the ground.
+In this problem we will call the tokens "stones" and the holes "slots".
+</p>
+
+<p>
+You are playing a variant of mancala with n slots around a circle.
+The slots are labeled from 0 to n-1 in clockwise order.
+Initially, each slot may contain some stones: for each i, slot i contains <b>start</b>[i] stones.
+</p>
+
+<p>
+The game is played in turns.
+In each turn you do the following:
+<ol>
+<li>You choose a non-empty slot and you take all stones from that slot into your hand.</li>
+<li>While you have some stones in your hand, you repeat the following process: you move one slot clockwise and you drop one stone into that slot.</li>
+</ol>
+</p>
+
+<p>
+Note that if you picked up a lot of stones you may go around the whole circle multiple times.
+Also note that during the second step you also place stones into the slot chosen in the first step.
+For example, suppose we have four slots with the following numbers of stones: (6, 3, 4, 0).
+Next, suppose that in step 1 we chose slot 0, i.e., the slot that contains 6 stones.
+In step 2 we will place those 6 stones into slots 1, 2, 3, 0, 1, and 2.
+After this turn the stones will be distributed as follows: (1, 5, 6, 1).
+</p>
+
+<p>
+You are given the vector &lt;int&gt; <b>start</b> with n elements: the initial distribution of the stones.
+Find and return any sequence of at most 2500 moves that leads to a state in which all stones are in a single slot.
+For the constraints used in this problem it is guaranteed that such a sequence of moves exists.
+Note that you do not need to minimize the number of moves, any valid sequence will be accepted.
+</p>
+
+<p>
+In order to return a sequence that consists of x moves, return a vector &lt;int&gt; with x elements: for each turn in chronological order, the number of the slot you chose.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ForwardMancala</td></tr><tr><td>Method:</td><td>findMoves</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; findMoves(vector &lt;int&gt; start)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>start</b> will contain between 2 and 10 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>start</b> will be between 0 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>It is guaranteed that the sum of elements in <b>start</b> is positive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{6,1,0,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 2, 3, 1, 2, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">In this case, the states would look as follows:
+
+<ul>
+<li>(6,1,0,1)</li>
+<li>(6,0,1,1)</li>
+<li>(6,0,0,2)</li>
+<li>(7,1,0,0)</li>
+<li>(7,0,1,0)</li>
+<li>(7,0,0,1)</li>
+<li>(8,0,0,0)</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0,10,0,0,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">In this case, all the stones are already in one slot, so we don't have to do anything.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0,1,0,1,0,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 4, 1, 2, 3, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{5,0,0,1,3,0,2,0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10,10,10,10,10,10,10,10,10,10}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5,
+ 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2,
+ 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8,
+ 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5,
+ 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

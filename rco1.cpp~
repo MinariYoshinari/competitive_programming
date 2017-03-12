@@ -1,0 +1,58 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cmath>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<queue>
+#include<vector>
+#include<tuple>
+#include<map>
+#include<set>
+#include<algorithm>
+
+#define rep(n) for(int i=0;i<n;i++)
+#define repp(j, n) for(int j=0;j<n;j++)
+#define reppp(i, m, n) for(int i=m;i<=n;i++)
+#define all(c) c.begin(), c.end()
+#define MOD 1000000007
+#define MAX 1000000001
+#define INF 1410065408
+ 
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> P;
+struct edge{int from, to; ll cost;};
+
+int input[50][50];
+bool use[50][50];
+int c = 0;
+vector<P> p;
+
+void search(int x, int y, int n){
+  use[y][x] = true;
+  queue<int> q;
+  q.push()
+}
+
+
+signed main(){
+  fill(use[0], use[50], false);
+
+  rep(50){
+	string s;
+	cin >> s;
+	repp(j, 50){
+	  input[i][j] = stoi(s[j]);
+	}
+  }
+  
+  repp(x, 50){
+	repp(y, 50){
+	  if(!use[y][x]){
+		c++;
+		//search(x, y, 0);
+	  }
+	}
+  }
+}
