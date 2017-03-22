@@ -78,21 +78,24 @@ signed main(){
   int c = 0;
   use = vector< vector<bool> >(50, vector<bool>(50, false));
 
+  priority_queue< pair<int, P> > order;
+
   string s;
   rep(3) cin >> s;
   rep(50){
 	cin >> s;
 	repp(j, 50){
 	  input[i][j] = s[j] - '0';
+	  order.push((make_pair(input[i][j], make_pair(i, j))));
 	}
   }
   
-  repp(x, 50){
-	repp(y, 50){
-	  if(!use[y][x] && input[y][x] != 0){
-		if(search(x, y)) c++;
-	  }
-	}
+  while(!order.empty()){
+	auto t = order.top(); order.pop();
+	if(t.first == 0) break;
+    int x = t.second.second, y = t.second.first;
+	if(use[y][x]) continue;
+	if(search(x, y)) c++;
   }
   cout << c << endl;
   rep(c*8){
