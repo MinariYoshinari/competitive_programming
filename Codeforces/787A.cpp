@@ -28,17 +28,21 @@ int main(){
 	ll a, b, c, d;
 	cin >> a >> b; 
 	cin >> c >>d;
-	if(a % 2 == 0 && c % 2 == 0 && (b-d) % 2 != 1){
-		cout << "-1";
-		return 0;
-	}
-	while(b != d){
-		if(b < d){
-			b += a;
+	vector<ll> bb(1000), dd(1000);
+	rep(1000) bb[i] = b + a * i;
+	rep(1000) dd[i] = d + c * i;
+	int i = 0, j = 0;
+	while(bb[i] != dd[j] && i < 1000 && j < 1000){
+		if(bb[i] < dd[j]){
+			i++;
 		}else{
-			d += c;
+			j++;
 		}
 	}
-	cout << b;
+	if(bb[i] == dd[j]){
+		cout << bb[i];
+	}else{
+		cout << "-1";
+	}
 	return 0;
 }

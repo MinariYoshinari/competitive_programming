@@ -27,34 +27,35 @@ int N;
 int main(){
     ll N, K;
 	cin >> N >> K;
-	vector<ll> a(N);
-	rep(N) cin >> a[i];
-	ll total = 0;
-	rep(K) total += a[i];
-    ll max_total = total, min_total = total;
-    ll max_i = K-1, min_i = K-1;
-	reppp(i, K, N-1){
-	    total -= a[i-K];
-	    total += a[i];
-	    if(total > max_total){
-	        max_total = total;
-	        max_i = i;
-	    }else if(total < min_total){
-	        min_total = total;
-	        min_i = i;
-	    }
-	}
-	ll ans1 = 0, ans2 = 0;
+	vector<ll> a(N), b(N);
 	rep(N){
-	    if(i+(K-1) >= max_i && i <= max_i){
-	        ans1 += a[i];
-	    }else if(a[i] >= 0){
-	        ans1 += a[i];
-	    }
-	    if(i+(K-1) >= min_i && i <= min_i){
-	    }else if(a[i] >= 0){
-	        ans2 += a[i];
-	    }
+		ll tmp;
+		cin >> tmp;
+		if(i == 0){
+			if(tmp > 0){
+				b[0] = tmp;
+			}else{
+				b[0] = 0;
+			}
+			a[0] = tmp;
+		}else{
+			if(tmp > 0){
+				b[i] = b[i-1] + tmp;
+			}else{
+				b[i] = b[i-1];
+			}
+			a[i] = a[i-1] + tmp;
+		}
 	}
-	cout << (ans1 > ans2 ? ans1 : ans2);
+
+	ll ans = b[N-1] - b[K-1];
+	if(a[K-1] > 0) ans += a[K-1];
+	reppp(i, K, N-1){
+		ll tmp = b[i-K] + b[N-1] - b[i];
+		if(a[i] - a[i-K] > 0) tmp += a[i] - a[i-K];
+		if(tmp > ans) {
+			ans = tmp;
+		}
+	}
+	cout << (ans>0?ans:0) << endl;
 }

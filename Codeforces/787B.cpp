@@ -28,10 +28,6 @@ int main(){
 	ll n,m;
 	cin >> n >> m; 
 	bool ans = false;
-	if(n==1){
-		cout << "NO";
-		return 0;
-	}
 	rep(m){
 		ll k;
 		cin >> k;
@@ -42,7 +38,6 @@ int main(){
 			cin >> tmp;
 			if(mp[-tmp]){
 				flag = false;
-				break;
 			}else{
 				mp[tmp] = true;
 			}
