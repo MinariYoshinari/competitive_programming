@@ -26,18 +26,22 @@ int main(){
         cout << "";
         return 0;
     }
-    vector<ll> an(K);
-    vector<string> av(K), sv(N-K);
+    vector<ll> an(K+1);
+    vector<string> av, sv;
     rep(K) cin >> an[i];
     int j = 0, k = 0;
     int min_length = 100000;
     rep(N){
+		string tmp;
+		cin >> tmp; 
         if(an[j] - 1 == i){
-            cin >> av[j];
-            if(min_length > (int)av[j].length()) min_length = (int)av[j].length();
-            j++;
+            av.push_back(tmp);
+            if(min_length > (int)av[i].length()){
+				min_length = (int)av[i].length();
+			}
+            if(j < K) j++;
         }else{
-            cin >> sv[k];
+			sv.push_back(tmp);
             k++;
         }
     }
@@ -55,11 +59,12 @@ int main(){
         if(!flag) break;
         flag = true;
         repp(j, N-K){
-            if((int)sv[j].length() >=i)  
+            if((int)sv[j].length() >=i){
 				if(sv[j].substr(0,i) == tmp){
                 	flag = false;
                 	break;
             	}
+            }
         }
         if(flag){
             ans = tmp;
