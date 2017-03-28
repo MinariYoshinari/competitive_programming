@@ -1,0 +1,58 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cmath>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<queue>
+#include<vector>
+#include<map>
+#include<set>
+#include<algorithm>
+
+#define rep(n) for(int i=0;i<n;i++)
+#define repp(j, n) for(int j=0;j<n;j++)
+#define reppp(i, m, n) for(int i=m;i<=n;i++)
+#define all(c) c.begin(), c.end()
+#define MOD 1000000007
+#define MAX 1000000001
+#define INF 1410065408
+ 
+using namespace std;
+typedef long long ll;
+typedef pair<ll, ll> P;
+struct edge{int from, to; ll cost;};
+
+signed main(){
+    ll N, C, K;
+    cin >> N >> C >> K;
+    vector<ll> t(N);
+    ll ans = 0;
+    rep(N){
+        cin >> t[i];
+    }
+    sort(all(t));
+    ll s = 0, c = 0;
+    rep(N){
+        if(s == 0){
+            s = t[i];
+			c++;
+        }else{
+            if(t[i] <= s + K){
+              c++;
+            }else{
+			  s = t[i];
+			  c = 1;
+			  ans++;
+			}
+            if(c >= C){
+			  ans++;
+			  s = 0;
+			  c = 0;
+            }
+        }
+		//cout << t[i] <<  " " << s  << " " << c << " " << ans << endl;
+    }
+    if(c > 0) ans++;
+    cout << ans;
+}
