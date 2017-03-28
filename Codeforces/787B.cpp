@@ -25,37 +25,28 @@ struct edge{int from, to; ll cost;};
 int N;
  
 int main(){
-    ll N, K;
-	cin >> N >> K;
-	vector<ll> a(N), b(N);
-	rep(N){
-		ll tmp;
-		cin >> tmp;
-		if(i == 0){
-			if(tmp > 0){
-				b[0] = tmp;
+	ll n,m;
+	cin >> n >> m; 
+	bool ans = false;
+	rep(m){
+		ll k;
+		cin >> k;
+		bool flag = true;
+		map<ll, bool> mp;
+		repp(j,k){
+			ll tmp;
+			cin >> tmp;
+			if(mp[-tmp]){
+				flag = false;
 			}else{
-				b[0] = 0;
+				mp[tmp] = true;
 			}
-			a[0] = tmp;
-		}else{
-			if(tmp > 0){
-				b[i] = b[i-1] + tmp;
-			}else{
-				b[i] = b[i-1];
-			}
-			a[i] = a[i-1] + tmp;
+		}
+		if(flag || k == 1){
+			ans = true;
+			break;
 		}
 	}
-
-	ll ans = b[N-1] - b[K-1];
-	if(a[K-1] > 0) ans += a[K-1];
-	reppp(i, K, N-1){
-		ll tmp = b[i-K] + b[N-1] - b[i];
-		if(a[i] - a[i-K] > 0) tmp += a[i] - a[i-K];
-		if(tmp > ans) {
-			ans = tmp;
-		}
-	}
-	cout << (ans>0?ans:0) << endl;
+	cout << (ans ? "YES" : "NO");
+	return 0;
 }

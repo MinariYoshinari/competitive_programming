@@ -10,6 +10,7 @@
 #include<map>
 #include<set>
 #include<algorithm>
+#include<random>
 
 #define rep(n) for(int i=0;i<n;i++)
 #define repp(j, n) for(int j=0;j<n;j++)
@@ -26,77 +27,101 @@ typedef long long ll;
 typedef pair<ll, int> P;
 struct edge{int from, to; ll cost;};
 
-
 int H, W, K, sy, sx, N;
 vector<string> ss(50);
 
+char itoc(int i){
+	switch(i){
+		case 0:
+			return 'D';
+		case 1:
+			return 'U';
+		case 2:
+			return 'R';
+		case 3:
+			return 'L';
+		default:
+			return 'D';
+	}
+}
+
 signed main(){
+  random_device rnd;
+  mt19937 mt(rnd());
+  uniform_int_distribution<> rand4(0, 4);  
   cin >> H >> W >> K >> sy >> sx;
   sy--; sx--;
   rep(50) cin >> ss[i];
   cin >> N;
-  vector<int> fy(N), fx(N); vector<ll> ff(N), dd(N);
-  vector<P> d_sort(N); vector<bool> use(N, false);
+vector<int> fy(N), fx(N); vector<ll> ff(N), dd(N);
+  vector<P> d_sort; vector<bool> use(N, false);
   rep(N){
 	cin >> fy[i] >> fx[i] >> ff[i] >> dd[i];
-	d_sort[i] =  make_pair(dd[i], i);
+	d_sort.emplace_back(abs(sy- fy[i])+abs(sx - fx[i]), i);
 	fy[i]--; fx[i]--;
   }
-  sort(all(d_sort));
 
-  for(int i=N-1;i>=0;i--){
-	int i_food = d_sort[i].second;
+  int count = 0;
+  while(!d_sort.empty()){
+	sort(all(d_sort));  
+	int i = d_sort[0].second;
+	ll f = ff[i], d = dd[i];
+	int gy = fy[i], gx = fx[i];
 
-	if(use[i_food]) continue;
-	
-	int count = 0;
-	char previous = 'E';
-	while(count <= 5){
-	  bool flag = false;
-	  repp(j, N){
-		if(sy == fy[j] && sx == fx[j]){
-		  use[j] = true;
-		  if(i == j) flag = true;
+	int count_same = 0;
+	char before = '-';
+	while(sy != gy || sx != gx){
+		char next = '-';
+		if(sy < gy && sy < H-1 && ss[sy+1][sx] != '#'){
+			next = 'D';
+		}else if(sy > gy && sy > 0 && ss[sy-1][sx] != '#'){
+			next = 'U';
+		}else if(sx < gx && sx < W-1 && ss[sy][sx+1] != '#'){
+			next = 'R';
+		}else if(sx > gx && sx > 0 && ss[sy][sx-1] != '#'){
+			next = 'L';
 		}
-	  }
-	  if(flag) break;
-	  count++;
-	  priority_queue< pair<int, char> > que;
-		if(sy-1 >= 0 && ss[sy-1][sx] == '.' && previous != 'D'){
-		  que.push(make_pair(-distance(fy[i_food], fx[i_food], sy-1, sx), 'U'));
+		if(count_same > -1) next = '-';
+		if(next == '-'){
+			bool flag = true;
+			do{
+				int num = rand4(mt);
+				next = itoc(num);
+				if(next == 'D' && sy < H-1 && ss[sy+1][sx] != '#'){
+					flag = false;
+				}else if(next == 'U' && sy > 0 && ss[sy-1][sx] != '#'){
+					flag = false;
+				}else if(next == 'R' && sx < W-1 && ss[sy][sx+1] != '#'){
+					flag = false;
+				}else if(next == 'L' && sx > 0 && ss[sy][sx-1] != '#'){
+					flag = false;
+				}
+			}while(flag);
 		}
-		if(sy+1 < 50 && ss[sy+1][sx] == '.'){
-		  que.push(make_pair(-distance(fy[i_food], fx[i_food], sy+1, sx), 'D'));
+		cout << next;
+		count++;
+		if(next == before){
+			count_same++;
+		}else{
+			count_same = 0;
 		}
-		if(sx-1 >= 0 && ss[sy][sx-1] == '.' && previous != 'R'){
-		  que.push(make_pair(-distance(fy[i_food], fx[i_food], sy, sx-1), 'L'));
-		}
-		if(sx+1 < 50 && ss[sy][sx+1] == '.'){
-		  que.push(make_pair(-distance(fy[i_food], fx[i_food], sy, sx+1), 'R'));
-		}
-
-		auto top = que.top();
-		cout << top.second;
-		previous = top.second;
-		switch(top.second){
-		case 'U':
-		  sy--;
-		  break;
-		case 'D':
-		  sy++;
-		  break;
-		case 'L':
-		  sx--;
-		  break;
-		case 'R':
-		  sx++;
-		  break;
-		default:
-		  break;
-		}
+		before = next;
+		if(count >= K) break;
 	}
-	use[i_food] = true;
+	if(count >= K) break;
+	
+	vector<P> d_sort2;
+	fy[i] = -1;
+	repp(j, N){
+		if(fy[j] != -1)
+			d_sort2.emplace_back(abs(sy- fy[j])+abs(sx - fx[j]), j);
+	}
+	swap(d_sort, d_sort2);
   }
-  
-  
+
+  while(count < K){
+	cout << '-';
+	count++;
+  }
+
 }
