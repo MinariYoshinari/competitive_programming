@@ -27,16 +27,41 @@ struct edge{int from, to; ll cost;};
 signed main(){
 	int N;
 	cin >> N;
-	vector<P> win(N+1, P(0, 0));
-	map<ll, vector<ll> > mp;
-
-	win[1].second = 1;
-	reppp(i, 2, N){
-		int p;
-		cin >> p;
-		win[i].first = i;
-		win[p].second++;
+	vector<ll> dp(N+1, -1);
+	vector<bool> flag(N, true);
+	map<ll, ll> mp;
+	
+	rep(N-1){
+		cin >> mp[i+2];
+		flag[mp[i+2]] = false;
 	}
-	sort(all(win));
-	reppp(i, 1, N) cout << win[i].first << " " << win[i].second << endl;
+
+	reppp(i, 1, N){
+		if(flag[i]){
+			dp[i] = 0;
+		}
+	}
+	repp(k, N){
+		vector<bool> flag_copy(flag);
+		reppp(i, 1, N){
+			if(flag[i]){
+				if(dp[mp[i]] == -1 || dp[mp[i]] < dp[i] + 1){
+					dp[mp[i]] = dp[i] + 1;
+				}else{
+					dp[mp[i]]++;
+				}
+				flag_copy[i] = false;
+				flag_copy[mp[i]] = true;
+			}
+		}
+		swap(flag, flag_copy);
+		bool finish = flag[1];
+		reppp(j, 2, N){
+		    if(flag[j]){
+		        finish = false;
+		    }
+        }
+		if(finish) break;
+	}
+	cout << dp[1];
 }

@@ -18,7 +18,8 @@
 #define MOD 1000000007
 #define MAX 1000000001
 #define INF 1410065408
- 
+#define EPS 1e-9 
+
 using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
