@@ -19,7 +19,7 @@
 #define MAX 100000
 #define INF 1410065408
 #define EPS 1e-9
- 
+
 using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
@@ -33,7 +33,7 @@ void bfs(ll vv, ll depth, ll c){
 	rep(depth+1){
 		dp[vv][i] = c;
 	}
-	
+
 	queue<P> que;
 	for(ll to : es[vv]){
 		if(dp[to][depth-1] == 0) que.push(P(to, depth-1));
@@ -73,10 +73,9 @@ signed main(){
 			}
 		}
 	}
-	
+
 	rep(N){
 		cout << dp[i+1][0] << endl;
 	}
-	
-}
 
+}

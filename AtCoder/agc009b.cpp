@@ -6,6 +6,7 @@
 #include<stack>
 #include<queue>
 #include<vector>
+#include<tuple>
 #include<map>
 #include<set>
 #include<algorithm>
@@ -14,6 +15,7 @@
 #define repp(j, n) for(int j=0;j<n;j++)
 #define reppp(i, m, n) for(int i=m;i<=n;i++)
 #define all(c) c.begin(), c.end()
+#define rall(c) c.rbegin(), c.rend()
 #define MOD 1000000007
 #define MAX 1000000001
 #define INF 1410065408
@@ -23,18 +25,29 @@ typedef long long ll;
 typedef pair<ll, ll> P;
 struct edge{int from, to; ll cost;};
 
-signed main(){
-  vector<P> p;
-  rep(3){
-	ll x,y;
-	scanf("%lld %lld", &x, &y);
-	p.push_back(make_pair(x, y));
-  }
+map< ll, vector<ll> > children;
+ll dfs(ll d){
+	vector<ll> d_children;
+	for(ll child : children[d]){
+		d_children.emplace_back(dfs(child));
+	}
+	if(d_children.size() == 0) return 0;
+	else{
+		sort(rall(d_children));
+		rep((int)d_children.size()){
+			d_children[i]+=i+1;
+		}
+		return *max_element(all(d_children));
+	}
+}
 
-  int n = 3;
-  rep(3){
-	int j = (i+1) % 3, k = (i+2) % 3;
-	P q = p[i] + p[j] - p[k];
-	
-  }
+signed main(){
+	int N;
+	ll tmp;
+	cin >> N;
+	rep(N-1){
+		cin >> tmp;
+		children[tmp].emplace_back(i+2);
+	}
+	cout << dfs(1);
 }
