@@ -1,0 +1,37 @@
+基本はこのサイトを見ればいい
+https://beet-aizu.github.io/rating/index.html?handle_topcoder=Noimin&handle_codeforces=Noimin&handle_atcoder=Noimin&handle_aoj=&handle_yukicoder=
+
+AOJのCourses
+- DPL: 1_E, 3_A, 4_A
+- NTL: 1_A, 1_B, 1_C, 1_D, 1_E
+
+TopCoderについては値がおかしい気がする
+・コンテスト本番中に解けたのが今まで13問(8戦)で，Hardを解けたことはない
+・復習等で解いたことのあるDiv2HardとDiv1Easyは以下の16問
+・8/15のSRMの前日にEasy1問解いた
+よって今まで30問解いたはず
+
+解いたDiv2 Hard
+SRM730 StoneOnATreeDiv2
+SRM727 ManageSubsequences
+SRM725 HiddenTreeDiv2
+SRM719 TwoDogsOnATree
+SRM718 RelativeHights
+SRM717 DerangementsDiv2
+SRM716 JumpDistancesOnTreeEasy
+SRM715 InPrePost
+SRM714 SalesWoman
+SRM708 PalindromicSubseq2
+SRM704 ModEquationEasy
+SRM619 EmployManager
+
+Div1 Easy
+SRM727 Only Santa
+SRM726 Unpacking
+SRM725 FiveRooks
+SRM724 OrAndSum
+SRM717 ScoresSequence
+
+GCJ
+2018
+Practice Session 2

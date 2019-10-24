@@ -1,4 +1,0 @@
-AtCoder: 164
-TopCoder: 10
-codeforces: 9
-蟻本: 19

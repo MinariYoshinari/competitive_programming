@@ -1,0 +1,42 @@
+-- Example 0
+ABXBCA
+ABCD
+XD
+
+2
+-- Example 1
+BXC
+BOCZ
+DSFHDS
+
+2
+-- Example 2
+BXC
+BOCZ
+BZ
+
+-1
+-- Example 3
+ABC
+CDE
+ABCE
+
+3
+-- Example 4
+BANANA
+APPLE
+ANNA
+
+-1
+-- Example 5
+BANANA
+ANANAS
+BS
+
+6
+-- Example 6
+BANANA
+ANANAS
+BNNS
+
+3
